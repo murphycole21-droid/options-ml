@@ -1,1 +1,23 @@
- 
+universe:
+  - SPY
+  - QQQ
+  - AAPL
+  - TSLA
+  - NVDA
+  - MSFT
+  - AMD
+  - META
+  - PLTR
+  - RBLX
+  - AMZN
+  - UNH
+
+risk:
+  max_position_size: 0.03
+  max_total_exposure: 0.06
+  max_drawdown: 0.15
+  daily_cvar_limit: 0.03
+  stop_loss_pct: 0.40
+
+paths:
+  raw: data/raw
