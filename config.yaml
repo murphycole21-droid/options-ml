@@ -19,5 +19,17 @@ risk:
   daily_cvar_limit: 0.03
   stop_loss_pct: 0.40
 
+strategy:
+  long:
+    enabled: true
+    filters:
+      iv_rank_max: 0.30
+      volume_min: 100
+      otm_only: true
+      max_dte: 60
+  short:
+    enabled: false
+
 paths:
   raw: data/raw
+  backtest: backtest
