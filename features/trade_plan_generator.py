@@ -45,7 +45,7 @@ def black_scholes_greeks(S, K, T, r, sigma, option_type):
 def pnl_scenarios(S0, K, premium, T_days, r, sigma, option_type):
     T = T_days / 365
     moves = [-0.05, -0.02, -0.01, 0, 0.01, 0.02, 0.05]
-    labels = ["(–5%)", "(–2%)", "(–1%)", "(flat)", "(+1%)", "(+2%)", "(+5%)"]
+    labels = ["(-5%)", "(-2%)", "(-1%)", "(flat)", "(+1%)", "(+2%)", "(+5%)"]
     scenarios = []
     for move, label in zip(moves, labels):
         S = S0 * (1 + move)

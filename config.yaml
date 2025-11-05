@@ -11,6 +11,23 @@ universe:
   - RBLX
   - AMZN
   - UNH
+  - PRLD
+  - JELD
+  - CAPT
+  - CMBM
+  - SRPT
+  - ICHR
+  - TONX
+  - NFE
+  - HTZ
+  - TCMD
+  - OPAD
+  - IHRT
+  - NSP
+  - PZZA
+  - KFRC
+  - FORD
+  - DGNX
 
 risk:
   max_position_size: 0.03
@@ -21,14 +38,11 @@ risk:
 
 strategy:
   long:
-    enabled: true
     filters:
       iv_rank_max: 0.30
       volume_min: 100
       otm_only: true
       max_dte: 60
-  short:
-    enabled: false
 
 paths:
   raw: data/raw
