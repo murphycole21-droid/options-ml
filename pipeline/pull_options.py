@@ -5,7 +5,6 @@ import yaml
 from datetime import datetime
 from pathlib import Path
 
-# Load config
 with open("config.yaml", "r") as f:
     config = yaml.safe_load(f)
 
@@ -26,15 +25,29 @@ for ticker in universe:
             print(" [NO OPTIONS]")
             continue
 
-        # Use nearest expiry
         expiry = expiries[0]
         chain = tk.option_chain(expiry)
-        calls = chain.calls.assign(type="call", expiry=expiry, ticker=ticker, date=today)
-        puts = chain.puts.assign(type="put", expiry=expiry, ticker=ticker, date=today)
-        full = pd.concat([calls, puts], ignore_index=True)
+        calls = chain.calls.copy()
+        puts = chain.puts.copy()
 
+        # ADD TYPE
+        calls['type'] = 'call'
+        puts['type'] = 'put'
+
+        # ADD UNDERLYING PRICE
+        underlying_price = tk.info.get('regularMarketPrice') or tk.info.get('previousClose')
+        calls['underlyingPrice'] = underlying_price
+        puts['underlyingPrice'] = underlying_price
+
+        # Add metadata
+        for df in [calls, puts]:
+            df['expiry'] = expiry
+            df['ticker'] = ticker
+            df['date'] = today
+
+        full = pd.concat([calls, puts], ignore_index=True)
         path = raw_path / f"{ticker}_{today}.parquet"
-        full.to_parquet(path)
+        full.to_parquet(path, index=False)
         print(f" [OK] {len(full)} contracts")
     except Exception as e:
         print(f" [ERROR] {e}")
